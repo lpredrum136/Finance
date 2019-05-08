@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+    
+    <form action="/buyandsell" method="POST">
+        <table class="table table-striped" id="align">
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Name</th>
+                    <th>Shares</th>
+                    <th>Price</th>
+                    <th>TOTAL</th>
+                    <th>Buy</th>
+                    <th>Sell</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for row in rows %}
+                <tr>
+                    <td>{{ row["symbol"] }}</td>
+                    <td>{{ row["name"] }}</td>
+                    <td>{{ row["SUM(shares)"] }}</td>
+                    <td>{{ row["price"] }}</td>
+                    <td>{{ row["total"] }}</td>
+                    <td><input class="form-control" type="radio" name="{{ row["symbol"] }}" value="buy"/></td>
+                    <td><input class="form-control" type="radio" name="{{ row["symbol"] }}" value="sell"/></td>
+                    <td><input class="form-control" type="number" name="shares{{ row["symbol"] }}" value="0" min="0"/></td>
+                </tr>
+            {% endfor %}
+                <tr>
+                    <td>CASH</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ cash }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4"></td>
+                    <td><b>{{ totalValue }}</b></td>
+                </tr>
+            </tfoot>
+        </table>
+        <button class="btn btn-primary" type="submit">Confirm Transaction</button>
+    </form>
+        
+{% endblock %}
